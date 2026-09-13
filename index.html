@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Annotation Using Python - MCQ Examination Prep</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="#" id="brand-link" class="brand-section">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-title-group">
+          <h1>
+            Data Annotation Using Python
+            <span class="badge-live">Exam Ready</span>
+          </h1>
+          <p>MCQ Examination Preparation Platform</p>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <button class="btn btn-secondary btn-sm" onclick="openQuestionBrowser()">
+          🔍 Search & Browse
+        </button>
+        <button class="btn btn-secondary btn-sm" onclick="openMockConfigModal()">
+          📝 Full Mock Test
+        </button>
+        <button class="btn btn-ghost btn-icon" id="theme-toggle-btn" title="Toggle Light/Dark Theme">
+          <span id="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-layout">
+
+    <!-- =================================================================== -->
+    <!-- VIEW 1: DASHBOARD / HOME -->
+    <!-- =================================================================== -->
+    <section id="view-dashboard" class="app-view active">
+      
+      <!-- Motivational Hero Banner -->
+      <div class="hero-banner">
+        <div class="hero-content">
+          <div class="hero-badge">🎯 Mission: Pass Tomorrow's Exam with High Marks</div>
+          <h2 class="hero-title">Master Every Concept & High-Yield MCQ</h2>
+          <p class="hero-subtitle">
+            Study method: Short notes → concepts → chapter MCQs → instant feedback → mistake correction.
+            Covering all 8 official syllabus chapters and 240 verified source MCQs with detailed explanations.
+          </p>
+
+          <!-- Overall Stats Grid -->
+          <div class="hero-stats-row">
+            <div class="hero-stat-card">
+              <div class="hero-stat-val" id="stat-total-chapters">8</div>
+              <div class="hero-stat-lbl">Chapters</div>
+            </div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-val" id="stat-total-mcqs">240</div>
+              <div class="hero-stat-lbl">Total MCQs</div>
+            </div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-val" id="stat-attempted">0</div>
+              <div class="hero-stat-lbl">Attempted</div>
+            </div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-val" id="stat-accuracy">0%</div>
+              <div class="hero-stat-lbl">Accuracy</div>
+            </div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-val text-success" id="stat-correct">0</div>
+              <div class="hero-stat-lbl">Correct</div>
+            </div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-val text-error" id="stat-incorrect">0</div>
+              <div class="hero-stat-lbl">Incorrect</div>
+            </div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-val" id="stat-unanswered">240</div>
+              <div class="hero-stat-lbl">Unanswered</div>
+            </div>
+          </div>
+
+          <!-- Hero Action Buttons -->
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" onclick="openMockConfigModal()">
+              🚀 Start Full Mock Exam
+            </button>
+            <button class="btn btn-secondary btn-lg" id="btn-review-mistakes-main" onclick="reviewAllMistakes()">
+              ⚠️ Review Incorrect Answers
+            </button>
+            <button class="btn btn-ghost btn-sm" onclick="resetAllProgress()" style="color: #fca5a5; margin-left: auto;">
+              ↺ Reset All Progress
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Cards -->
+      <div class="quick-actions-grid">
+        <div class="action-card" onclick="openMockConfigModal()">
+          <div class="action-card-icon icon-blue">🎯</div>
+          <div class="action-card-body">
+            <h3>Full Mock Examination</h3>
+            <p>Simulate exam conditions with 120 MCQs across all chapters.</p>
+          </div>
+        </div>
+
+        <div class="action-card" onclick="reviewAllMistakes()">
+          <div class="action-card-icon icon-rose">⚠️</div>
+          <div class="action-card-body">
+            <h3>Review Incorrect Answers</h3>
+            <p>Retest mistakes and inspect underlying concepts.</p>
+          </div>
+        </div>
+
+        <div class="action-card" onclick="openQuestionBrowser()">
+          <div class="action-card-icon icon-green">🔎</div>
+          <div class="action-card-body">
+            <h3>Question Bank Browser</h3>
+            <p>Search questions by keyword, topic, concept, or status.</p>
+          </div>
+        </div>
+
+        <div class="action-card" onclick="openMemorySheet(6)">
+          <div class="action-card-icon icon-purple">⚡</div>
+          <div class="action-card-body">
+            <h3>Last-Minute Revision Sheets</h3>
+            <p>Rapid memorization tables and top 10 exam traps.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter Selection Header -->
+      <div class="section-header">
+        <div>
+          <h2>📚 Examination Chapters</h2>
+          <p class="section-subtitle">Preserving the syllabus chapter order from your study guide.</p>
+        </div>
+      </div>
+
+      <!-- Chapters Grid -->
+      <div class="chapters-grid" id="chapters-grid">
+        <!-- Dynamically rendered via app.js -->
+      </div>
+
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 2: EXAMINATION & PRACTICE INTERFACE -->
+    <!-- =================================================================== -->
+    <section id="view-exam" class="app-view">
+      <div class="exam-layout">
+        
+        <!-- Left Main Test Area -->
+        <div class="exam-main-panel">
+          
+          <!-- Exam Header -->
+          <div class="exam-header">
+            <div class="exam-header-top">
+              <div class="exam-test-title">
+                <span id="exam-title">Examination</span>
+              </div>
+              <div class="exam-badges-group">
+                <button class="btn btn-secondary btn-sm mobile-palette-toggle" onclick="toggleMobilePalette()">
+                  📋 Palette
+                </button>
+                <span id="exam-mode-badge" class="mode-badge">Exam Mode</span>
+                <div class="exam-timer-box" id="exam-timer">
+                  <span>⏱️</span>
+                  <span id="timer-value">00:00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="exam-progress-bar-wrap">
+              <div class="progress-track">
+                <div id="exam-progress-bar" class="progress-fill" style="width: 0%;"></div>
+              </div>
+              <div class="exam-progress-text" id="exam-q-progress-text">Question 1 of 40</div>
+            </div>
+          </div>
+
+          <!-- Question Content -->
+          <div class="question-container">
+            <div class="question-meta">
+              <span class="question-num-tag" id="q-num-tag">Q1</span>
+              <span class="question-topic-tag" id="q-topic-tag">Topic</span>
+            </div>
+            <div class="question-text" id="q-text">Loading question text...</div>
+          </div>
+
+          <!-- Options Stack -->
+          <div class="options-stack" id="options-stack" role="radiogroup" aria-label="Question Options">
+            <!-- 4 options dynamically rendered -->
+          </div>
+
+          <!-- Answer Feedback Box -->
+          <div id="feedback-box" class="feedback-box">
+            <!-- Dynamic feedback rendered here -->
+          </div>
+
+          <!-- Exam Navigation Controls -->
+          <div class="exam-nav-bar">
+            <div class="nav-left">
+              <button class="btn btn-secondary" id="btn-prev-q" onclick="prevQuestion()">
+                ⬅️ Previous
+              </button>
+              <button class="btn btn-secondary btn-sm" id="btn-mark-review" onclick="toggleMarkForReview()">
+                ☆ Mark for Review
+              </button>
+              <button class="btn btn-ghost btn-sm" id="btn-clear-answer" onclick="clearAnswer()">
+                Clear Answer
+              </button>
+            </div>
+
+            <div class="nav-right">
+              <button class="btn btn-success" id="btn-submit-answer" onclick="submitAnswer()">
+                ✓ Submit Answer
+              </button>
+              <button class="btn btn-primary" id="btn-next-q" onclick="nextQuestion()">
+                Next Question ➡️
+              </button>
+              <button class="btn btn-outline-danger btn-sm" onclick="finishTest()">
+                🏁 Finish Test
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Side: Question Palette -->
+        <aside class="exam-sidebar">
+          <div class="sidebar-title">
+            <span>Question Palette</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Quick Jump</span>
+          </div>
+
+          <div class="palette-grid" id="palette-grid">
+            <!-- Numbers 1 to N -->
+          </div>
+
+          <div class="palette-legend">
+            <div class="legend-item"><span class="legend-dot" style="background: var(--bg-elevated); border: 1px solid var(--border-light);"></span> Unanswered</div>
+            <div class="legend-item"><span class="legend-dot" style="background: #93c5fd;"></span> Answered</div>
+            <div class="legend-item"><span class="legend-dot" style="background: #a7f3d0;"></span> Correct</div>
+            <div class="legend-item"><span class="legend-dot" style="background: #fecaca;"></span> Incorrect</div>
+            <div class="legend-item"><span class="legend-dot" style="background: #fde68a;"></span> ★ Marked</div>
+            <div class="legend-item"><span class="legend-dot" style="outline: 2px solid var(--primary);"></span> Current</div>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 3: FINAL RESULTS PAGE -->
+    <!-- =================================================================== -->
+    <section id="view-results" class="app-view">
+      <div class="result-card">
+        <div class="result-celebration" id="res-celebration">🎉</div>
+        <h2 class="result-title">Test Completed!</h2>
+        <p class="result-subtitle" id="res-test-title">Examination Results Summary</p>
+
+        <!-- Score Ring / Circle -->
+        <div class="result-score-ring-wrap">
+          <div class="score-badge-circle">
+            <div class="score-number" id="res-score-number">32/40</div>
+            <div class="score-pct" id="res-score-pct">80% Accuracy</div>
+          </div>
+        </div>
+
+        <!-- Performance Stats Grid -->
+        <div class="result-stats-grid">
+          <div class="res-stat-box">
+            <div class="res-stat-val text-success" id="res-correct">32</div>
+            <div class="res-stat-lbl">Correct Answers</div>
+          </div>
+          <div class="res-stat-box">
+            <div class="res-stat-val text-error" id="res-incorrect">6</div>
+            <div class="res-stat-lbl">Incorrect Answers</div>
+          </div>
+          <div class="res-stat-box">
+            <div class="res-stat-val" id="res-unanswered">2</div>
+            <div class="res-stat-lbl">Unanswered</div>
+          </div>
+          <div class="res-stat-box">
+            <div class="res-stat-val" id="res-time">14m 20s</div>
+            <div class="res-stat-lbl">Time Taken</div>
+          </div>
+        </div>
+
+        <p id="res-message" style="margin-bottom: 2rem; font-weight: 500; font-size: 1.05rem; color: var(--text-primary);">
+          Solid foundation! Reviewing wrong answers will guarantee top marks.
+        </p>
+
+        <!-- Result Action Buttons -->
+        <div class="result-actions">
+          <button class="btn btn-secondary btn-lg" onclick="renderDashboard()">
+            🏠 Back to Dashboard
+          </button>
+          <button class="btn btn-primary btn-lg" id="res-btn-review-mistakes">
+            ⚠️ Review Incorrect Answers
+          </button>
+          <button class="btn btn-secondary btn-lg" onclick="openMockConfigModal()">
+            🔁 Retake / New Test
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 4: INCORRECT ANSWERS REVIEW -->
+    <!-- =================================================================== -->
+    <section id="view-review" class="app-view">
+      <div class="review-header">
+        <div>
+          <h2 id="review-title" style="font-size: 1.5rem; font-weight: 800;">Review Incorrect Answers</h2>
+          <p id="review-subtitle" style="color: var(--text-muted); font-size: 0.9rem;">Analyze mistakes, inspect concepts, and retest.</p>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn btn-primary btn-sm" onclick="retestAllMistakes()">
+            🔁 Retest All Mistakes Now
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="renderDashboard()">
+            🏠 Back to Dashboard
+          </button>
+        </div>
+      </div>
+
+      <div class="review-list" id="review-list">
+        <!-- Mistake cards rendered here -->
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 5: QUESTION BANK SEARCH & BROWSER -->
+    <!-- =================================================================== -->
+    <section id="view-browser" class="app-view">
+      <div class="section-header">
+        <div>
+          <h2>🔎 Complete Question Bank & Concept Browser</h2>
+          <p class="section-subtitle">Search questions by text, keyword, topic, or filter by your attempt status.</p>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="renderDashboard()">
+          🏠 Back to Dashboard
+        </button>
+      </div>
+
+      <!-- Search & Filter Controls -->
+      <div class="search-filter-bar">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="browser-search-input" class="search-input" placeholder="Search questions, topics, tools, definitions (e.g. Diarization, MFCC, LiDAR)..." oninput="filterQuestions()">
+        </div>
+
+        <select id="browser-chapter-select" class="filter-select" onchange="filterQuestions()">
+          <option value="all">All Chapters</option>
+          <option value="3">Chapter 3: Fundamentals of Data Annotation</option>
+          <option value="4">Chapter 4: Text Annotation</option>
+          <option value="5">Chapter 5: Image & Video Annotation</option>
+          <option value="6">Chapter 6: Audio Annotation</option>
+          <option value="7">Chapter 7: AI-Assisted & Best Practices</option>
+          <option value="8">Chapter 8: Application of Data Annotation</option>
+        </select>
+
+        <select id="browser-filter-select" class="filter-select" onchange="filterQuestions()">
+          <option value="all">All Statuses</option>
+          <option value="correct">Passed / Correct</option>
+          <option value="incorrect">Incorrect / Need Review</option>
+          <option value="unanswered">Unattempted</option>
+          <option value="marked">Marked for Review</option>
+        </select>
+      </div>
+
+      <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;" id="browser-results-count">
+        Showing 240 questions
+      </div>
+
+      <div class="review-list" id="browser-list">
+        <!-- Filtered questions rendered here -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =================================================================== -->
+  <!-- MODAL: CONCEPT INSPECTION DRAWER -->
+  <!-- =================================================================== -->
+  <div class="modal-overlay" id="concept-modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="concept-modal-title">Concept Inspection</h3>
+        <button class="btn btn-ghost btn-icon" id="concept-modal-close" style="font-size: 1.25rem;">✕</button>
+      </div>
+      <div class="modal-body" id="concept-modal-body">
+        <!-- Populated dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary btn-sm" onclick="closeConceptModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- MODAL: MOCK TEST CONFIGURATION -->
+  <!-- =================================================================== -->
+  <div class="modal-overlay" id="mock-modal-overlay">
+    <div class="modal-content" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3 class="modal-title">⚙️ Configure Examination / Practice</h3>
+        <button class="btn btn-ghost btn-icon" id="mock-config-close" style="font-size: 1.25rem;">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Select how you want to configure your practice session from the complete question bank:
+        </p>
+
+        <div class="config-options-grid">
+          <label class="config-radio-card active">
+            <input type="radio" name="mock-option" value="full-all" checked>
+            <div>
+              <strong>Complete Mock (Sequential)</strong>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">All 120 MCQs in original chapter order.</p>
+            </div>
+          </label>
+
+          <label class="config-radio-card">
+            <input type="radio" name="mock-option" value="full-random">
+            <div>
+              <strong>Complete Mock (Shuffled)</strong>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">All 120 MCQs in randomized order.</p>
+            </div>
+          </div>
+
+          <label class="config-radio-card">
+            <input type="radio" name="mock-option" value="quick-20">
+            <div>
+              <strong>20-Question Rapid Drill</strong>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">20 random questions for a quick revision test.</p>
+            </div>
+          </div>
+
+          <label class="config-radio-card">
+            <input type="radio" name="mock-option" value="incorrect-only">
+            <div>
+              <strong>Incorrect Questions Only</strong>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">Retest only questions you answered incorrectly.</p>
+            </div>
+          </label>
+
+          <label class="config-radio-card">
+            <input type="radio" name="mock-option" value="ch3">
+            <div>
+              <strong>Chapter 3 Test (40 MCQs)</strong>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">Data Annotation Basics, Learning Types, Methods, Tools.</p>
+            </div>
+          </label>
+
+          <label class="config-radio-card">
+            <input type="radio" name="mock-option" value="ch4">
+            <div>
+              <strong>Chapter 4 Test (40 MCQs)</strong>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">Text Annotation, NER, BILOU, POS, Sentiment Analysis.</p>
+            </div>
+          </label>
+
+          <label class="config-radio-card">
+            <input type="radio" name="mock-option" value="ch5">
+            <div>
+              <strong>Chapter 5 Test (40 MCQs)</strong>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">Image & Video Annotation, Bounding Boxes, Segmentation, CVAT.</p>
+            </div>
+          </label>
+
+          <label class="config-radio-card">
+            <input type="radio" name="mock-option" value="ch6">
+            <div>
+              <strong>Chapter 6 Test (40 MCQs)</strong>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">Audio Annotation, STT, Diarization, Praat.</p>
+            </div>
+          </label>
+
+          <label class="config-radio-card">
+            <input type="radio" name="mock-option" value="ch7">
+            <div>
+              <strong>Chapter 7 Test (40 MCQs)</strong>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">AI-Assisted, 3D LiDAR, Synthetic Data, Ethics.</p>
+            </div>
+          </label>
+
+          <label class="config-radio-card">
+            <input type="radio" name="mock-option" value="ch8">
+            <div>
+              <strong>Chapter 8 Test (40 MCQs)</strong>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">Real-World Annotation, Collaboration, QA.</p>
+            </div>
+          </label>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" onclick="closeMockModal()">Cancel</button>
+        <button class="btn btn-primary btn-sm" onclick="executeMockStart()">Start Selected Test 🚀</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div>
+        <strong>Data Annotation Using Python Examination System</strong>
+        <p style="margin-top: 0.2rem;">Self-contained offline application. All data and progress stay in your local browser.</p>
+      </div>
+      <div>
+        <span>Keyboard shortcuts: <kbd>A</kbd> <kbd>B</kbd> <kbd>C</kbd> <kbd>D</kbd> select option • <kbd>Enter</kbd> submit • <kbd>→</kbd> next • <kbd>M</kbd> mark</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
